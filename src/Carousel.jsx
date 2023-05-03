@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { shortList, list, longList } from './data';
 import { FaQuoteRight, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 const Carousel = () => {
-  const [people, setPeople] = useState(shortList);
+  // one person
+  // const [people, setPeople] = useState(shortList);
+  // list of people - we have all people on the top of each other
+  const [people, setPeople] = useState(list);
 
   const prevSlide = () => {
     console.log('prev');
