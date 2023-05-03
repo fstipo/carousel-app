@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { shortList, list, longList } from './data';
 import { FaQuoteRight, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 const Carousel = () => {
@@ -10,10 +10,16 @@ const Carousel = () => {
 
   // for logic we will use css transform(100%)
   const prevSlide = () =>
-    setCurrentPerson((prev) => (prev - 1 + people.length) % people.length);
+    setCurrentPerson((curr) => (curr - 1 + people.length) % people.length);
 
   const nextSlide = () =>
-    setCurrentPerson((prev) => (prev + 1) % people.length);
+    setCurrentPerson((curr) => (curr + 1) % people.length);
+
+  useEffect(() => {
+    let sliderId = setInterval(() => nextSlide(), 2000);
+    sliderId;
+    return () => clearInterval(sliderId);
+  }, [currentPerson]);
 
   return (
     <section className="slider-container">
@@ -25,6 +31,8 @@ const Carousel = () => {
             className="slide"
             style={{
               transform: `translateX(${100 * (personIndex - currentPerson)}%)`,
+              opacity: personIndex === currentPerson ? 1 : 0,
+              visibility: personIndex === currentPerson ? 'visible' : 'hidden',
             }}
           >
             <img className="person-img" src={image} alt={name} />
